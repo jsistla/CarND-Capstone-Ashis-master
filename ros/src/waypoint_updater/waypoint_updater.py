@@ -29,7 +29,6 @@ LOOKAHEAD_WPS = 200
 # Car speed in simulator (or real env) is MPH, whereas ROS uses MPS
 MPH_TO_MPS = 0.44704
 # max car speed
-MAX_SPEED = 10 * MPH_TO_MPS #m/s
 
 
 class WaypointUpdater(object):
@@ -47,6 +46,9 @@ class WaypointUpdater(object):
     """
     def __init__(self):
         rospy.init_node('waypoint_updater')
+
+        self.max_speed = rospy.get_param('~max_speed') * MPH_TO_MPS
+        assert self.max_speed is not None
 
         rospy.Subscriber('/current_pose', PoseStamped, self.pose_cb) # 40-45 hz
         self.base_waypoints_sub = rospy.Subscriber('/base_waypoints', Lane, self.waypoints_cb) # 40 hz
@@ -107,7 +109,7 @@ class WaypointUpdater(object):
                 continue
 
             ## decide target speed based on traffic light
-            target_speed = MAX_SPEED
+            target_speed = self.max_speed
             if self.red_light_ahead():
                 target_speed = 0
 

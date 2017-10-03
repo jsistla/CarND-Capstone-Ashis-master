@@ -111,7 +111,7 @@ class DBWNode(object):
         self.car_velocity = msg.twist
 
     def loop(self):
-        rate = rospy.Rate(50) # 50Hz is too high for testing
+        rate = rospy.Rate(10) # 50Hz is too high for testing
         while not rospy.is_shutdown():
             # deal with time
             now = rospy.rostime.get_time()

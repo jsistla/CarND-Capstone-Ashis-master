@@ -11,6 +11,7 @@ import tf
 import cv2
 import math
 import yaml
+import rospy
 
 STATE_COUNT_THRESHOLD = 3
 

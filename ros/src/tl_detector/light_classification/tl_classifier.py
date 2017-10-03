@@ -4,6 +4,7 @@ from real_model import RealModel
 import os
 import cv2
 import time
+import rospy
 
 class TLClassifier(object):
     def __init__(self, scenario):

@@ -3,7 +3,7 @@ from os import path
 import numpy as np
 from scipy import misc
 from styx_msgs.msg import TrafficLight
-
+import rospy
 
 class RealModel(object):
   def __init__(self, model_checkpoint):
@@ -27,7 +27,7 @@ class RealModel(object):
 
     img = misc.imresize(image, (227, 227)).astype(np.float32)
     imgs = np.expand_dims(img, 0)
-    rospy.loginfo(' ======= predict  imgs ', imgs.shape )
+    #rospy.loginfo(' ======= predict  imgs ', imgs.shape )
     prediction = self.sess.run(self.predictions,
                   feed_dict={
                     self.image: imgs,

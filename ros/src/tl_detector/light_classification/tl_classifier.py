@@ -26,6 +26,6 @@ class TLClassifier(object):
 
         """
         #TODO implement light color prediction
-        cv2.imwrite('/home/student/sim_images/'+str(time.time()) + '_' + '.png',image)
-        rospy.loginfo(' ======= get_classification  cv_image ' )
+        #cv2.imwrite('/home/student/sim_images/'+str(time.time()) + '_' + '.png',image)
+        #rospy.loginfo(' ======= get_classification  cv_image ' )
         return self.model.predict(image)

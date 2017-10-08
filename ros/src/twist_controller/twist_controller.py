@@ -10,7 +10,6 @@ class Controller(object):
 
     def __init__(self, vehicle_mass, wheel_radius, accel_limit, decel_limit,
                        wheel_base, steer_ratio, min_speed, max_lat_accel, max_steer_angle):
-        # self.speed_controller = PID(5, 0.05, 1, -0.5, 0.5)
 
         # use a separate speed controller, than from PID
         self.speed_controller = SpeedController(
@@ -18,8 +17,6 @@ class Controller(object):
                                 wheel_radius,
                                 accel_limit,
                                 decel_limit)
-        # self.speed_controller = PID(0.5, 0.02, 0.2)
-        # self.steering_controller = PID(5, 0.05, 1, -0.5, 0.5)
         self.steering_controller = PID(0.5, 0.05, 0.1, -0.35, 0.35)
         self.yaw_controller = YawController(wheel_base, steer_ratio, min_speed, max_lat_accel, max_steer_angle)
 

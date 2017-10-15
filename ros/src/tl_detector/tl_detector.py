@@ -51,7 +51,7 @@ class TLDetector(object):
 
         self.bridge = CvBridge()
         self.scenario = rospy.get_param("~scenario")
-        self.light_classifier = TLClassifier(self.scenario)
+        self.light_classifier = TLClassifier()
         self.listener = tf.TransformListener()
 
         self.state = TrafficLight.UNKNOWN
@@ -183,6 +183,43 @@ class TLDetector(object):
         return distances.index(min(distances))
 
 
+
+    def project_to_image_plane(self, point_in_world):
+        """Project point from 3D world coordinates to 2D camera image location
+
+        Args:
+            point_in_world (Point): 3D location of a point in the world
+
+        Returns:
+            x (int): x coordinate of target point in image
+            y (int): y coordinate of target point in image
+
+        """
+
+        fx = self.config['camera_info']['focal_length_x']
+        fy = self.config['camera_info']['focal_length_y']
+        image_width = self.config['camera_info']['image_width']
+        image_height = self.config['camera_info']['image_height']
+
+        # get transform between pose of camera and world frame
+        trans = None
+        try:
+            now = rospy.Time.now()
+            self.listener.waitForTransform("/base_link",
+                  "/world", now, rospy.Duration(1.0))
+            (trans, rot) = self.listener.lookupTransform("/base_link",
+                  "/world", now)
+
+        except (tf.Exception, tf.LookupException, tf.ConnectivityException):
+            rospy.logerr("Failed to find camera to map transform")
+
+        #TODO Use tranform and rotation to calculate 2D position of light in image
+
+        x = 0
+        y = 0
+
+        return (x, y)
+
     #######################  light state detection #######################################
 
     def get_light_state(self, light):
@@ -201,6 +238,8 @@ class TLDetector(object):
             return False
 
         cv_image = self.bridge.imgmsg_to_cv2(self.camera_image, "bgr8")
+
+        x, y = self.project_to_image_plane(light.pose.pose.position)
 
         #rospy.loginfo(' ======= get_light_state  cv_image ',cv_image.shape )
         #print('======= get_light_state cv_image ', cv_image.shape)

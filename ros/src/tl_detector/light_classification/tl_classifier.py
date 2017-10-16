@@ -21,7 +21,7 @@ from utilities import visualization_utils as vis_util
 
 
 class TLClassifier(object):
-    
+
     def __init__(self, *args):
 
 
@@ -33,10 +33,9 @@ class TLClassifier(object):
         #base_path = os.path.dirname(os.path.abspath(__file__))
         MODEL_NAME = 'ssd_mobilenet_tl/'
         PATH_TO_CKPT = os.path.join('light_classification/', MODEL_NAME, 'frozen_inference_graph.pb')
-        
 
         # Load label map
-        
+
         PATH_TO_LABELS = os.path.join('light_classification/', MODEL_NAME, 'traffic_lights_label_map.pbtxt')
         NUM_CLASSES = 14
         label_map = label_map_util.load_labelmap(PATH_TO_LABELS)

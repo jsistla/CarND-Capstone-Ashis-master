@@ -10,10 +10,10 @@ class RealModel(object):
     self.sess = None
     self.checkpoint = model_checkpoint
     self.label2class = {
-      TrafficLight.GREEN: 0,
+      TrafficLight.GREEN: 2,
       TrafficLight.YELLOW: 1,
-      TrafficLight.RED: 2,
-      TrafficLight.UNKNOWN: 3}
+      TrafficLight.RED: 0,
+      TrafficLight.UNKNOWN: 4}
     self.class2label = {v:k for k, v in self.label2class.items()}
     tf.reset_default_graph()
 

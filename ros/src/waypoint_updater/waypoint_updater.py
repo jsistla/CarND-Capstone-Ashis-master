@@ -66,7 +66,7 @@ class WaypointUpdater(object):
         self.redlight_wp_index = None
 
         ## rate to publish to final_waypoints
-        self.publish_rate = 40 # doesnt make sense if >= 40, which is /current_pose rate
+        self.publish_rate = 10 # doesnt make sense if >= 40, which is /current_pose rate
 
 
         # publish waypoints in a loop with explicit rate
